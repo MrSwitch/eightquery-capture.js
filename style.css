@@ -19,7 +19,7 @@
     video, img{
         border-radius:20px;
         border:10px inset #0b0b0b;
-        background-color: gray;
+        background: gray url(images/camera.png) no-repeat center center;
         box-shadow:10px 10px 10px black;
     }
 
