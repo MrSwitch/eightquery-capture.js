@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <index root="\" startIndexAt="bld\35cdc36c-4c1e-4125-974e-9404c011fc04\layout.resfiles">
+    <default>
+      <qualifier name="language" value="en-us" />
+      <qualifier name="contrast" value="standard" />
+      <qualifier name="homeregion" value="001" />
+    </default>
+    <indexer-config type="RESFILES" qualifierDelimiter="." />
+  </index>
+  <index root="\" startIndexAt="bld\35cdc36c-4c1e-4125-974e-9404c011fc04\resources.resfiles">
+    <default>
+      <qualifier name="language" value="en-us" />
+      <qualifier name="contrast" value="standard" />
+      <qualifier name="homeregion" value="001" />
+    </default>
+    <indexer-config type="RESW" convertDotsToSlashes="true" />
+    <indexer-config type="RESJSON" />
+    <indexer-config type="RESFILES" qualifierDelimiter="." />
+  </index>
+</resources>

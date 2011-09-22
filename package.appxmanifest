@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="35cdc36c-4c1e-4125-974e-9404c011fc04" Version="1.0.0.0" Publisher="CN=Switch" />
+  <Properties>
+    <DisplayName>capture.js</DisplayName>
+    <Description>capture.js</Description>
+    <PublisherDisplayName>Switch</PublisherDisplayName>
+    <Logo>images\storelogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="en-US" />
+  </Resources>
+  <Applications>
+    <Application Id="App" StartPage="default.html">
+      <VisualElements DisplayName="capture.js" Logo="images\logo.png" SmallLogo="images\smalllogo.png" Description="capture.js" ForegroundText="light" BackgroundColor="#0084FF" InitialRotationPreference="portrait">
+        <DefaultTile ShowName="true" />
+        <SplashScreen Image="images\splashscreen.png" />
+      </VisualElements>
+      <Extensions>
+        <Extension Category="windows.cameraSettings" StartPage="default.html" />
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="videosLibrary" />
+    <Capability Name="picturesLibrary" />
+    <Capability Name="internetClient" />
+    <DeviceCapability Name="microphone" />
+    <DeviceCapability Name="webcam" />
+  </Capabilities>
+</Package>

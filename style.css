@@ -1,0 +1,80 @@
+﻿body{
+    background:
+      -ms-linear-gradient(63deg, #151515 5px, transparent 5px) 0 5px,
+      -ms-linear-gradient(243deg, #151515 5px, transparent 5px) 10px 0px,
+      -ms-linear-gradient(63deg, #222 5px, transparent 5px) 0px 10px,
+      -ms-linear-gradient(243deg, #222 5px, transparent 5px) 10px 5px,
+      -ms-linear-gradient(0deg, #1b1b1b 10px, transparent 10px),
+      -ms-linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+#camera {
+    width:auto;
+    text-align:center;
+}
+    video, img{
+        border-radius:20px;
+        border:10px inset #0b0b0b;
+        background-color: gray;
+        box-shadow:10px 10px 10px black;
+    }
+
+    #cameracontrols button{
+        background-color:red;
+        font-size:1.5em;
+        font-weight:bold;
+    }
+
+    #album video, #album img{
+        -ms-transform: scale(0.1);
+        transform: scale(0.1);
+        width:0;
+        vertical-align:middle;
+        vertical-align:central;
+        -ms-transition: width 0.5s,-ms-transform 1s;
+        transition: width 0.5s, transform 1s;
+    }
+        #album video.show, #album img.show
+        {
+            width:160px;
+            -ms-transform: scale(1);
+            transform: scale(1);
+        }
+
+button{
+    margin:5px 10px;
+	border:none;
+	background:#222222;
+	background:-ms-gradient(linear,left top, left bottom, from(rgba(255,255,255,0.2)), to(rgba(0,0,0,0.2)), 
+				color-stop(50%,rgba(255,255,255,0)), 
+				color-stop(50%,rgba(0,0,0,0)));
+	background: -ms-linear-gradient(rgba(255,255,255,0.2) 0,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.2) 100%);
+    -ms-box-shadow: rgba(255, 255, 255, 0.1) 0 1px inset,
+                        rgba(0, 0, 0, 0.4) 0px 1px 1px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0 1px inset,
+                        rgba(0, 0, 0, 0.4) 0px 1px 1px;
+	text-shadow:rgba(0, 0, 0, 0.4) 0px 1px;
+
+	-ms-border-radius:3px;
+	border-radius:3px;
+	padding:3px 6px;
+	color:white;/*IE*/
+	color:rgba(255,255,255,0.5);
+	-ms-user-select:none;
+	user-select:none;
+	font-family:"Lucida Grande", Arial, sans-serif;
+	font-size:13px;
+	cursor:pointer;
+	vertical-align: middle;
+}
+	button:active,button.active{
+	    -ms-box-shadow: rgba(255, 255, 255, 0.2) 0 1px,
+	                        rgba(0, 0, 0, 0.7) 0px 1px 3px inset,
+	                        rgba(0, 0, 0, 0.1) 0px -5px 12px inset;
+		text-shadow:white 0 0 5px;
+		color:white;
+	}    

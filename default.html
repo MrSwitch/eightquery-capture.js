@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>eightquery-capture.js - jQuery wrapper for WinRT Capture</title>
+    <script src="jquery.js"></script>
+    <script src="eightquery-capture.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <h1>eightquery-capture.js</h1>
+        <p>jQuery wrapper for Windows 8 WinRT Capture - By andrew dodson</p>
+    </header>
+    <div id="camera"></div>
+    <div id="cameracontrols"></div>
+    <div id="album"></div>
+    <script>
+
+        $('<video width="320px" height="240px"/>').capture(function () {
+            // Add the video's to the page
+            var $v = $(this).appendTo('#camera').click(function () {
+                // select the video to capture
+                $(this).trigger("video");
+            });
+
+            // Add buttons Record / Snapshot
+            $("<button>record</button>").appendTo('#cameracontrols').click(function () {
+                var btn = this;
+                if ( !$v.capture('recording') ) {
+                    $v.capture('record', function () {
+                        // started recording, 
+                        // change the text on button
+                        btn.innerHTML = 'stop';
+                    });
+                }
+                else {
+                    $v.capture('stoprecording', function (e) {
+                        // create a new video tag and play
+                        $vid = $("<video>").attr({ src: e.blob }).prependTo("#album")
+                        $vid.get(0).play();
+                        setTimeout(function (){ $vid.addClass("show"); }, 100);
+                        btn.innerHTML = 'record';
+                    });
+                }
+            });
+
+            // Add Shapshot control
+            $("<button>SnapShot</button>").appendTo('#cameracontrols').click(function () {
+                $(this).capture("snapshot", { width: 320, height: 240, type: "jpeg" }, function (e) {
+                    // e.blob
+                    // e.path
+                    var $img = $("<img>").attr({ src: e.blob }).prependTo('#album');
+                    setTimeout(function (){ $img.addClass("show"); }, 100);
+                });
+            });
+        });
+
+        /**
+         * Add play event to the video's captured
+         */
+        $('#album video').live('click', function () {
+            this.paused ? this.play() : this.pause();
+        });
+
+    </script>
+</body>
+</html>
