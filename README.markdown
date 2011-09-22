@@ -19,6 +19,33 @@ Abstracts the WinRT capture API.. So we can write something like
 	});
 
 
+This plugin has basic commands
+
+
+	// initialise a webcam stream
+	$(video).capture(function(){})
+
+	// take a picture of the stream
+	$(video).capture("snapshot", function(){})
+
+	// start a recording of the stream
+	$(video).capture("record", function(e){})
+
+	// stop a recording of the stream
+	$(video).capture("stoprecording", function(e){})
+
+	// current state of the recording
+	$(video).capture("recording", function(e){})
+	
+
+The first argument passed back to the callback function is an object containing links to the video and or image
+
+	{
+		blob : blob_uri, // browser blob uri. Use this to display in the "src" attribute of the <video> or <img> tags respectively. 
+		path : filesystem // path on the filesystem where the temporary file is stored
+	}
+
+
 # Why
 
 To do this with the WinRT has crazy convoluted namespaces on everything
