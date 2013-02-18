@@ -1,14 +1,24 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>eightquery-capture.js - jQuery wrapper for WinRT Capture</title>
-    <script src="jquery.js"></script>
-    <script src="eightquery-capture.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <title>capture.js - jQuery wrapper for WinRT Capture</title>
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <!-- Capture.js references -->
+    <link href="/css/default.css" rel="stylesheet" />
+
+    <script src="/js/default.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/capture.js"></script>
+
 </head>
 <body>
     <header>
-        <h1>eightquery-capture.js</h1>
+        <h1>Capture.js</h1>
         <p>jQuery wrapper for Windows 8 WinRT Capture - By andrew dodson</p>
     </header>
     <div id="camera"></div>
@@ -16,9 +26,9 @@
     <div id="album"></div>
     <script>
 
-        $('<video width="320px" height="240px"/>').capture(function () {
+        $('<video width="320px" height="240px"/>').appendTo('#camera').capture(function () {
             // Add the video's to the page
-            var $v = $(this).appendTo('#camera').click(function () {
+            var $v = $(this).click(function () {
                 // select the video to capture
                 $(this).trigger("video");
             });
@@ -34,9 +44,9 @@
                     });
                 }
                 else {
-                    $v.capture('stoprecording', function (e) {
+                    $v.capture('stoprecording', function (blob) {
                         // create a new video tag and play
-                        $vid = $("<video>").attr({ src: e.blob }).prependTo("#album")
+                        $vid = $("<video>").attr({ src: URL.createObjectURL(blob) }).prependTo("#album")
                         $vid.get(0).play();
                         setTimeout(function (){ $vid.addClass("show"); }, 100);
                         btn.innerHTML = 'record';
@@ -46,10 +56,11 @@
 
             // Add Shapshot control
             $("<button>SnapShot</button>").appendTo('#cameracontrols').click(function () {
-                $(this).capture("snapshot", { width: 320, height: 240, type: "jpeg" }, function (e) {
+                $(this).capture("snapshot", { width: 320, height: 240, type: "jpeg" }, function (blob) {
                     // e.blob
                     // e.path
-                    var $img = $("<img>").attr({ src: e.blob }).prependTo('#album');
+                    console.log("callback");
+                    var $img = $("<img>").attr({ src: URL.createObjectURL(blob) }).prependTo('#album');
                     setTimeout(function (){ $img.addClass("show"); }, 100);
                 });
             });

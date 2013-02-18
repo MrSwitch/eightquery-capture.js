@@ -26,13 +26,13 @@ This plugin has basic commands
 	$(video).capture(function(){})
 
 	// take a picture of the stream
-	$(video).capture("snapshot", function(){})
+	$(video).capture("snapshot", function(blob){})
 
 	// start a recording of the stream
 	$(video).capture("record", function(e){})
 
 	// stop a recording of the stream
-	$(video).capture("stoprecording", function(e){})
+	$(video).capture("stoprecording", function(blob){})
 
 	// current state of the recording
 	$(video).capture("recording", function(e){})

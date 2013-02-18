@@ -5,7 +5,6 @@
  * @author Andrew Dodson < drew81.com >
  * @since Sept 2011
  *
- *
  * Its pretty simple to use.
  *
  *
@@ -22,14 +21,9 @@
         // e.state
         // e.position
     });
-    $v.capture('stoprecording', function (e) {
-        // e.blob
-        // e.state = stopped
-        // e.position
-    });
-    $v.capture('snapshot', function (e) {
-        // e.blob
-    });
+
+    $v.capture('stoprecording', function (blob) { ... });
+    $v.capture('snapshot', function (blob) { ... });
 
  */
 (function ($) {
@@ -42,7 +36,7 @@
     // Global
     var devices = [],
         m = null,
-        videoencoding = new Windows.Media.Capture.MediaEncodingProfile.createMp4(Windows.Media.Capture.VideoEncodingQuality.qvga),
+        videoencoding = new Windows.Media.MediaProperties.MediaEncodingProfile.createMp4(Windows.Media.MediaProperties.VideoEncodingQuality.qvga),
         recording = false;
 
 
@@ -73,17 +67,16 @@
             if (action === 'snapshot') {
 
                 /// take a snapshot of the video.
-                Windows.Storage.KnownFolders.picturesLibrary.createFileAsync("temp.jpg").then(
+                Windows.Storage.KnownFolders.picturesLibrary.createFileAsync("Capture_"+(new Date()).getTime()+".jpg").then(
                 function (photoStorage) {
-                    var photoProperties = new Windows.Media.Capture.ImageEncodingProperties();
+                    var photoProperties = new Windows.Media.MediaProperties.ImageEncodingProperties();
                     photoProperties.subtype = (options.type || "JPEG").toUpperCase();
                     photoProperties.width = options.width || 320;
                     photoProperties.height = options.width || 240;
                     m.capturePhotoToStorageFileAsync(photoProperties, photoStorage).then(
                     function (result) {
                         log("Photo Taken.  File " + photoStorage.path + "  ");
-                        var url = URL.createObjectURL(photoStorage, false);
-                        callback({ blob: url, path: photoStorage.path });
+                        callback(photoStorage);
                     },
                     function (e) {
                         log("An exception occurred trying to capturePhoto: " + e.message);
@@ -113,7 +106,7 @@
 
             if (action === 'stoprecording') {
                 m.stopRecordAsync().then(function (result) {
-                    callback({blob:URL.createObjectURL(recording, false), path: recording.path});
+                    callback(recording);
                     log(recording);
                     recording = false;
                 }, errorHandler);
@@ -127,9 +120,11 @@
 
         log("Devices, searching");
 
+        
         // Get the devices
         Windows.Devices.Enumeration.DeviceInformation.findAllAsync(Windows.Devices.Enumeration.DeviceClass.videoCapture)
         .then(function (r) {
+
             // Add the devices to deviceList
             devices = r;
 
@@ -154,6 +149,8 @@
                     $r = $r.add(cln);
                 }
             }
+
+            /*
             var c;
 
             // Get the device which corresponds to the video tags found
@@ -164,6 +161,7 @@
             c.photoCaptureSource = Windows.Media.Capture.PhotoCaptureSource.videoStream;
             c.deviceExtensionEnabled = true;
             c.hardwareAccelerationEnabled = true;
+            */
 
             // Loop through and initiate capture device
             $r.each(function(i){
@@ -181,15 +179,15 @@
 
                     $(video).attr('title', d.id);
 
-                    c.videoDeviceId = d.id;
+                    //c.videoDeviceId = d.id;
 
                     m = new Windows.Media.Capture.MediaCapture();
                     m.addEventListener("failed", errorHandler, false);
-                    m.initializeAsync(c).then(function (result) {
-                        video.src = URL.createObjectURL(m, false);
+                    //m.initializeAsync(c).then( function(){
+                    m.initializeAsync().then( function(){
+                        video.src = URL.createObjectURL(m);
                         video.play();
                     });
-
                 }
 
                 self();
